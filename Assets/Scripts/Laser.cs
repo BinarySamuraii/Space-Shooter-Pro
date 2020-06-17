@@ -12,12 +12,12 @@ public class Laser : MonoBehaviour
     }
 
     
-    void Update()
+    private void Update()
     {
         LaseMovement();
     }
 
-    void LaseMovement()
+    private void LaseMovement()
     {
         transform.Translate(Vector3.up * (_speed * Time.deltaTime));
 

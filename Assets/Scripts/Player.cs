@@ -9,15 +9,16 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _laserPrefab;
     [SerializeField] private float _fireRate = 0.5f;
     private float _canFire = -1f;
+    [SerializeField] private int _lives = 3;
     
-    void Start()
+   private void Start()
     { 
         //Player Start Position
         transform.position = new Vector3(0, 0, 0);
     }
 
     
-    void Update()
+    private void Update()
     {
         PlayerMovement();
         PlayerBoundaries();
@@ -28,7 +29,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void PlayerMovement()
+    private void PlayerMovement()
     {
         var horizontalInput = Input.GetAxis("Horizontal");
         var verticalInput = Input.GetAxis("Vertical");
@@ -36,7 +37,7 @@ public class Player : MonoBehaviour
         transform.Translate(direction * (_speed * Time.deltaTime));
     }
 
-    void PlayerBoundaries()
+    private void PlayerBoundaries()
     {
         var position = transform.position;
         position = new Vector3(position.x, Mathf.Clamp(position.y, -3.8f, 0), 0);
@@ -51,9 +52,19 @@ public class Player : MonoBehaviour
         }
     }
 
-    void PlayerFire()
+    private void PlayerFire()
     {
         _canFire = Time.time + _fireRate;
         Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+    }
+
+    public void Damage()
+    {
+        _lives --;
+
+        if (_lives < 1)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
