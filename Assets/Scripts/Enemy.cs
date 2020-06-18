@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         // Set Enemy Spawn
-        transform.position = new Vector3(0, 7.5f, 0);
+        transform.position = new Vector3(Random.Range(-8.0f, 9.0f), 7.5f, 0);
     }
 
    
