@@ -7,10 +7,12 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private GameObject _enemyContainer;
+    [SerializeField] private GameObject _powerUpPrefab;
     private bool _stopSpawning = false;
     private void Start()
     {
-        StartCoroutine(SpawnRoutine());
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnPowerUpRoutine());
     }
 
     
@@ -19,14 +21,22 @@ public class SpawnManager : MonoBehaviour
         
     }
 
-    private IEnumerator SpawnRoutine()
+    private IEnumerator SpawnEnemyRoutine()
     {
         while (_stopSpawning == false)
         {
             GameObject newEnemy = Instantiate(_enemyPrefab, _enemyContainer.transform, true);
             yield return new WaitForSeconds(4.5f);
         }
-        
+    }
+
+    private IEnumerator SpawnPowerUpRoutine()
+    {
+        while (_stopSpawning == false)
+        { 
+            Instantiate(_powerUpPrefab);
+            yield return new WaitForSeconds(Random.Range(10.0f, 20.0f)); 
+        }
     }
 
     public void OnPlayerDeath()

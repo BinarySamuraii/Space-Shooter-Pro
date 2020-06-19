@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Laser
   - Spawn_Manager
+  - Power Up
+  - Triple Shot
   layers:
   - Default
   - TransparentFX

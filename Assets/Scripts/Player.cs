@@ -85,4 +85,19 @@ public class Player : MonoBehaviour
             _spawnManager.OnPlayerDeath();
         }
     }
+
+    public void TripleShotActivate()
+    {
+        _isTripleShotActive = true;
+        StartCoroutine(TripleShotPowerDownRoutine());
+    }
+
+    IEnumerator TripleShotPowerDownRoutine()
+    {
+        while (_isTripleShotActive == true)
+        {
+            yield return new WaitForSeconds(5.0f);
+            _isTripleShotActive = false;
+        } 
+    }
 }
