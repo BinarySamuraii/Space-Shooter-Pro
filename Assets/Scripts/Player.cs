@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,6 +14,9 @@ public class Player : MonoBehaviour
     private float _canFire = -1f;
     private SpawnManager _spawnManager;
     [SerializeField] private bool _isTripleShotActive = false;
+    [SerializeField] private bool _isSpeedActivated = false;
+    [SerializeField] private float _powerupSpeed = 2;
+    
    private void Start()
     { 
         //Player Start Position
@@ -42,7 +46,8 @@ public class Player : MonoBehaviour
         var horizontalInput = Input.GetAxis("Horizontal");
         var verticalInput = Input.GetAxis("Vertical");
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
-        transform.Translate(direction * (_speed * Time.deltaTime));
+       transform.Translate(direction * (_speed * Time.deltaTime));  
+ 
     }
 
     private void PlayerBoundaries()
@@ -99,5 +104,24 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(5.0f);
             _isTripleShotActive = false;
         } 
+    }
+
+    public void SpeedActivate()
+    {
+        _isSpeedActivated = true;
+        _speed *= _powerupSpeed;
+        StartCoroutine(SpeedPowerDownRoutine());
+
+    }
+
+    IEnumerator SpeedPowerDownRoutine()
+    {
+        while (_isSpeedActivated == true)
+        {
+            yield return new WaitForSeconds(5.0f);
+            _isSpeedActivated = false;
+            _speed /= _powerupSpeed;
+
+        }
     }
 }

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class Powerup : MonoBehaviour
 {
     [SerializeField] private float _speed = 3.0f;
+    [SerializeField] private int _powerupID; // 0-Triple Shot 1-Speed 2-Shields
    
     private void Start()
     {
@@ -33,9 +35,17 @@ public class Powerup : MonoBehaviour
         {
             Player player = other.transform.GetComponent<Player>();
 
-            if (player != null)
+            switch (_powerupID)
             {
-                player.TripleShotActivate();
+                case 0:
+                    player.TripleShotActivate();
+                    break;
+                case 1:
+                    player.SpeedActivate();
+                    break;
+                case 2:
+                    Debug.Log("Shield powerup collected");
+                    break;
             }
             
             Destroy(this.gameObject);
