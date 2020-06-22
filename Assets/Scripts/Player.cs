@@ -21,9 +21,9 @@ public class Player : MonoBehaviour
    private void Start()
     { 
         //Player Start Position
-        transform.position = new Vector3(0, 0, 0);
-        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
-
+       transform.position = new Vector3(0, 0, 0);
+       _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        
         if (_spawnManager == null)
         {
             Debug.Log("The Spawn Manager is NULL!");
