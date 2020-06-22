@@ -10,6 +10,8 @@ TagManager:
   - Power Up
   - Triple Shot
   - Speed
+  - Shield_Powerup
+  - Shield
   layers:
   - Default
   - TransparentFX

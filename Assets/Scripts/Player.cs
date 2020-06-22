@@ -9,14 +9,15 @@ public class Player : MonoBehaviour
     [SerializeField] private float _speed = 3.5f;
     [SerializeField] private GameObject _laserPrefab;
     [SerializeField] private GameObject _tripleShotPrefab;
+    [SerializeField] private GameObject _shield;
     [SerializeField] private float _fireRate = 0.5f;
     [SerializeField] private int _lives = 3;
+    [SerializeField] private float _powerupSpeed = 2;
     private float _canFire = -1f;
     private SpawnManager _spawnManager;
-    [SerializeField] private bool _isTripleShotActive = false;
-    [SerializeField] private bool _isSpeedActivated = false;
-    [SerializeField] private float _powerupSpeed = 2;
-    
+    private bool _isTripleShotActive = false;
+    private bool _isSpeedActivated = false;
+    private bool _isShieldActive = false;
    private void Start()
     { 
         //Player Start Position
@@ -82,12 +83,21 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        if (_isShieldActive == true)
+        {
+            _isShieldActive = false;
+            _shield.SetActive(false);
+            return;
+        }
+        
         _lives --;
+        
+       
 
         if (_lives < 1)
         {
-            Destroy(this.gameObject);
             _spawnManager.OnPlayerDeath();
+            Destroy(this.gameObject);
         }
     }
 
@@ -122,6 +132,25 @@ public class Player : MonoBehaviour
             _isSpeedActivated = false;
             _speed /= _powerupSpeed;
 
+        }
+    }
+
+    public void ShieldActivate()
+    {
+        
+        _isShieldActive = true;
+        _shield.SetActive(true);
+        StartCoroutine(ShieldPowerDownRoutine());
+    }
+
+    IEnumerator ShieldPowerDownRoutine()
+    {
+        while (_isShieldActive == true)
+        {
+            yield return new WaitForSeconds(5.0f);
+            _isShieldActive = false;
+            _shield.SetActive(false);
+            
         }
     }
 }
