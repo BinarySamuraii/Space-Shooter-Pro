@@ -8,10 +8,12 @@ using Random = UnityEngine.Random;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _speed = 4.0f;
+    private Player _player;
     private void Start()
     {
         // Set Enemy Spawn
         transform.position = new Vector3(Random.Range(-8.0f, 9.0f), 7.5f, 0);
+        _player = GameObject.Find("Player").GetComponent<Player>();
     }
 
    
@@ -48,6 +50,12 @@ public class Enemy : MonoBehaviour
         }else if (other.CompareTag("Laser"))
         {
             Destroy(GameObject.FindWithTag("Laser"));
+            
+            if (_player != null)
+            {
+                _player.ScoreUpdate(10);
+            }
+            
             Destroy(this.gameObject);
             
         }

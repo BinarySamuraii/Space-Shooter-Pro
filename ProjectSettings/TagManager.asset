@@ -12,6 +12,7 @@ TagManager:
   - Speed
   - Shield_Powerup
   - Shield
+  - Score
   layers:
   - Default
   - TransparentFX
