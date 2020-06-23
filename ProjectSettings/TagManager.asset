@@ -13,6 +13,7 @@ TagManager:
   - Shield_Powerup
   - Shield
   - Score
+  - Game Manager
   layers:
   - Default
   - TransparentFX
