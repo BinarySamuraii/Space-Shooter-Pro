@@ -7,11 +7,11 @@ public class Astroid : MonoBehaviour
 {
    [SerializeField] private float _spinSpeed = 19.0f;
    [SerializeField] private GameObject _explosionPrefab;
-   
+   private SpawnManager _spawnManager;
   
     void Start()
     {
-        
+        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
     }
 
   
@@ -31,6 +31,7 @@ public class Astroid : MonoBehaviour
         {
             Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(other.gameObject);
+            _spawnManager.StartSpawning();
             Destroy(this.gameObject, 0.25f);
         }
     }

@@ -11,11 +11,15 @@ public class SpawnManager : MonoBehaviour
     private bool _stopSpawning = false;
     private void Start()
     {
-        StartCoroutine(SpawnEnemyRoutine());
-        StartCoroutine(SpawnPowerUpRoutine());
+
         
     }
 
+    public void StartSpawning()
+    {
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnPowerUpRoutine());
+    }
     
     private void Update()
     {
@@ -24,6 +28,7 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnEnemyRoutine()
     {
+        yield return new WaitForSeconds(3.0f);
         while (_stopSpawning == false)
         {
             GameObject newEnemy = Instantiate(_enemyPrefab, _enemyContainer.transform, true);
@@ -33,6 +38,7 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnPowerUpRoutine()
     {
+        yield return new WaitForSeconds(3.0f);
         while (_stopSpawning == false)
         {
             int randomPowerUp = Random.Range(0, 3);
