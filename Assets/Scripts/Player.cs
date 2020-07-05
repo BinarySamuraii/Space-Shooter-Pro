@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _laserPrefab;
     [SerializeField] private GameObject _tripleShotPrefab;
     [SerializeField] private GameObject _shield;
+    [SerializeField] private GameObject _rightEngine;
+    [SerializeField] private GameObject _leftEngine;
     [SerializeField] private float _fireRate = 0.5f;
     [SerializeField] private int _lives = 3;
     [SerializeField] private float _powerupSpeed = 2;
@@ -99,6 +101,15 @@ public class Player : MonoBehaviour
         }
         
         _lives --;
+
+        if (_lives == 2 )
+        {
+            _rightEngine.SetActive(true);
+        }
+        else if (_lives == 1)
+        {
+            _leftEngine.SetActive(true);
+        }
         
         _uiManager.UpdateLives(_lives);
        
