@@ -8,6 +8,7 @@ public class Powerup : MonoBehaviour
 {
     [SerializeField] private float _speed = 3.0f;
     [SerializeField] private int _powerupID; // 0-Triple Shot 1-Speed 2-Shields
+    [SerializeField] private AudioClip _powerupSound;
    
     private void Start()
     {
@@ -34,6 +35,8 @@ public class Powerup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Player player = other.transform.GetComponent<Player>();
+            
+            AudioSource.PlayClipAtPoint(_powerupSound, transform.position);
 
             switch (_powerupID)
             {

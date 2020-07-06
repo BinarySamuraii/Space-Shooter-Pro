@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _speed = 4.0f;
+    private AudioSource _audioSource;
     private Player _player;
     private Animator _anim;
     private void Start()
@@ -15,6 +16,7 @@ public class Enemy : MonoBehaviour
         // Set Enemy Spawn
         transform.position = new Vector3(Random.Range(-8.0f, 9.0f), 7.5f, 0);
         _player = GameObject.Find("Player").GetComponent<Player>();
+        _audioSource = GetComponent<AudioSource>();
 
         if (_player == null)
         {
@@ -27,6 +29,12 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("_anim is NULL");
         }
+
+        if (_audioSource == null)
+        {
+            Debug.Log("Enemy AudioSource is NULL");
+        }
+       
     }
 
    
@@ -60,6 +68,7 @@ public class Enemy : MonoBehaviour
            
            _anim.SetTrigger("OnEnemyDeath");
            _speed = 0f;
+           _audioSource.Play();
             Destroy(this.gameObject, 2.8f);
            
         }else if (other.CompareTag("Laser"))
@@ -72,6 +81,7 @@ public class Enemy : MonoBehaviour
             }
             _anim.SetTrigger("OnEnemyDeath");
             _speed = 0f;
+            _audioSource.Play();
             Destroy(this.gameObject, 2.8f);
             
         }
